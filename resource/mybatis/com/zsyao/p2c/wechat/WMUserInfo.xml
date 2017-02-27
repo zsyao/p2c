@@ -1,0 +1,65 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper 
+    PUBLIC "-//ibatis.apache.org//DTD Mapper 3.0//EN" 
+    "http://ibatis.apache.org/dtd/ibatis-3-mapper.dtd">
+<mapper namespace="WMUserInfo">
+	<select id="select" parameterType="com.zsyao.p2c.wechat.model.WMUserInfo" resultType="com.zsyao.p2c.wechat.model.WMUserInfo">
+		Select * From WM_UserInfo
+		<where>
+			<if test="openId != openId">
+				openId = #{openId}
+			</if>
+		</where>
+	</select>
+	
+	<update id="updateToDb" parameterType="com.zsyao.p2c.wechat.model.WMUserInfo">
+		Update WM_UserInfo
+		<set>
+			<if test="nickName != null and nickName != ''">
+				nickName = #{nickName},
+			</if>
+			<if test="sex != null and sex != ''">
+				sex = #{sex},
+			</if>
+			<if test="country != null and country != ''">
+				country = #{country},
+			</if>
+			<if test="province != null and province != ''">
+				province = #{province},
+			</if>
+			<if test="city != null and city != ''">
+				city = #{city},
+			</if>
+			<if test="headimgUrl != null and headimgUrl != ''">
+				headimgUrl = #{headimgUrl},
+			</if>
+			<if test="subscribe != null and subscribe != ''">
+				subscribe = #{subscribe},
+			</if>
+			<if test="subscribeTime != null and subscribeTime != ''">
+				subscribeTime = #{subscribeTime},
+			</if>
+			<if test="unionId != null and unionId != ''">
+				unionId = #{unionId},
+			</if>
+			<if test="remark != null and remark != ''">
+				remark = #{remark},
+			</if>
+			<if test="groupId != null and groupId != ''">
+				groupId = #{groupId},
+			</if>
+			<if test="customerId != null and customerId != ''">
+				customerId = #{customerId},
+			</if>
+			<if test="wechatId != null and wechatId != ''">
+				wechatId = #{wechatId}
+			</if>
+		</set>
+		Where openId = #{openId}
+	</update>
+	
+	<insert id="insertToDb" parameterType="com.zsyao.p2c.wechat.model.WMUserInfo">
+		Insert Into WM_UserInfo(openId, nickName, sex, country, province, city, headimgUrl, subscribe, subscribeTime, unionId, remark, groupId, customerId, wechatId)
+		Values(#{openId}, #{nickName}, #{sex}, #{country}, #{province}, #{city}, #{headimgUrl}, #{subscribe}, #{subscribeTime}, #{unionId}, #{remark}, #{groupId}, #{customerId}, #{wechatId})
+	</insert>
+</mapper>

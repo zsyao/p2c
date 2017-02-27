@@ -75,7 +75,7 @@
 	</bean>
 
 	<!--自定义commonDao注入 -->
-	<bean id="dao" class="com.sinowel.core.dao.ibatis.IbatisDao">
+	<bean id="dao" class="com.zsyao.core.dao.mybatis.MybatisDao">
 		<property name="sqlSessionTemplate" ref="sqlSessionTemplate" />
 	</bean>
 </beans>

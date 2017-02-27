@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper 
+    PUBLIC "-//ibatis.apache.org//DTD Mapper 3.0//EN" 
+    "http://ibatis.apache.org/dtd/ibatis-3-mapper.dtd">
+<mapper namespace="WMKeywordReply">
+	<select id="select" parameterType="com.zsyao.p2c.wechat.model.WMKeywordReply" resultType="com.zsyao.p2c.wechat.model.WMKeywordReply">
+		Select * From WM_Keyword_Reply
+		<where>
+			<if test="wechatId != null">
+				wechatId = #{wechatId}
+			</if>
+			<if test="keyword != null and keyword != ''">
+				And keyword = #{keyword}
+			</if>
+		</where>
+	</select>
+</mapper>

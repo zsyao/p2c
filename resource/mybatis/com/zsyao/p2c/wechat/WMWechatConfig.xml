@@ -1,0 +1,54 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper 
+    PUBLIC "-//ibatis.apache.org//DTD Mapper 3.0//EN" 
+    "http://ibatis.apache.org/dtd/ibatis-3-mapper.dtd">
+<mapper namespace="WMWechatConfig">
+	<select id="select" parameterType="com.zsyao.p2c.wechat.model.WMWechatConfig" resultType="com.zsyao.p2c.wechat.model.WMWechatConfig">
+		Select * From WM_Wechat_Config
+		<where>
+			<if test="status != null">
+				status = #{status}
+			</if>
+			<if test="appId != null and appId != ''">
+				And appId = #{appId}
+			</if>
+			<if test="serialNo != null">
+				And serialNo = #{serialNo}
+			</if>
+		</where>
+	</select>
+	
+	<update id="updateToDb" parameterType="com.zsyao.p2c.wechat.model.WMWechatConfig">
+		Update WM_Wechat_Config
+			<set>
+				<if test="appId != null and appId != ''">
+					appId = #{appId},
+				</if>
+				<if test="appSecret != null and appSecret != ''">
+					appSecret = #{appSecret},
+				</if>
+				<if test="token != null and token != ''">
+					token = #{token},
+				</if>
+				<if test="accessToken != null and accessToken != ''">
+					accessToken = #{accessToken},
+				</if>
+				<if test="accessTokenExpiresIn != null and accessTokenExpiresIn != ''">
+					accessTokenExpiresIn = #{accessTokenExpiresIn},
+				</if>
+				<if test="jsapiTicket != null and jsapiTicket != ''">
+					jsapiTicket = #{jsapiTicket},
+				</if>
+				<if test="jsapiTicketExpiresIn != null and jsapiTicketExpiresIn != ''">
+					jsapiTicketExpiresIn = #{jsapiTicketExpiresIn},
+				</if>
+				<if test="subscribeMessage != null and subscribeMessage != ''">
+					subscribeMessage = #{subscribeMessage},
+				</if>
+				<if test="status != null and status != ''">
+					status = #{status}
+				</if>
+			</set>
+		Where serialNo = #{serialNo}
+	</update>
+</mapper>
