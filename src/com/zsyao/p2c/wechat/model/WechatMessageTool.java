@@ -25,11 +25,6 @@ public class WechatMessageTool
 {
 	private static Logger logger = Logger.getLogger(WechatMessageTool.class);
 	
-	public static void main(String[] args)
-	{
-		String xml = "<xml><ToUserName><![CDATA[gh_a8d44bd2f0a8]]></ToUserName><FromUserName><![CDATA[o50Petycrnr5YIzmlhtTz1BPXb8s]]></FromUserName><CreateTime>1477389502</CreateTime><MsgType><![CDATA[event]]></MsgType><Event><![CDATA[subscribe]]></Event><EventKey><![CDATA[qrscene_101]]></EventKey><Ticket><![CDATA[gQG57zoAAAAAAAAAASxodHRwOi8vd2VpeGluLnFxLmNvbS9xL04weFYyaVBsdFZuTXJqa0VQV0FqAAIEY2WwVgMEAAAAAA==]]></Ticket></xml>";
-		parserFromXML(xml);
-	}
 	/**
 	 * 
 	 * @param <T>
