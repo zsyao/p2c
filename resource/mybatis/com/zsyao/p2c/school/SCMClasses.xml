@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper 
+    PUBLIC "-//ibatis.apache.org//DTD Mapper 3.0//EN" 
+    "http://ibatis.apache.org/dtd/ibatis-3-mapper.dtd">
+<mapper namespace="SCMClasses">
+	<select id="getClassesList" parameterType="com.zsyao.p2c.school.model.SCMClasses" resultType="com.zsyao.p2c.school.model.SCMClasses">
+		Select * From SCM_Classes 
+		<where>
+			<if test="serialNo != null">
+				And serialNo = #{serialNo}
+			</if>
+			<if test="schoolId != null">
+				And schoolId = #{schoolId}
+			</if>
+		</where>
+	</select>
+</mapper>
