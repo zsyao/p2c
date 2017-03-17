@@ -8,4 +8,6 @@ import com.zsyao.p2c.school.model.SCMClasses;
 public interface ISCMClassesService
 {
 	List<SCMClasses> getClassesList(Integer schoolId) throws Exception;
+	
+	boolean join(Integer classesId, String openId, String reason) throws Exception;
 }

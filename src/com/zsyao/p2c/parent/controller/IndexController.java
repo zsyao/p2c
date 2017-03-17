@@ -92,4 +92,21 @@ public class IndexController
 		json.put("classesList", arryClasses);
 		return json.toString();
 	}
+	
+	@RequestMapping(value = {"/requestJoinClasses"}, produces = {"text/html;charset=UTF-8"})
+	@ResponseBody
+	public String requestJoinClasses(Integer id, String reason) throws Exception
+	{
+		List<SCMClasses> classesList = classesService.getClassesList(id);
+		JSONObject json = new JSONObject();
+		json.put(Constants.JSON_OF_IS_SUCCESS, true);
+		
+		JSONArray arryClasses = new JSONArray();
+		for (SCMClasses classes : classesList)
+		{
+			arryClasses.add(JSONObject.fromObject(classes));
+		}
+		json.put("classesList", arryClasses);
+		return json.toString();
+	}
 }
