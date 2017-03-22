@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper 
+    PUBLIC "-//ibatis.apache.org//DTD Mapper 3.0//EN" 
+    "http://ibatis.apache.org/dtd/ibatis-3-mapper.dtd">
+<mapper namespace="SCMTimetables">
+	<select id="select" parameterType="com.zsyao.p2c.school.model.SCMTimetables" resultType="com.zsyao.p2c.school.model.SCMTimetables">
+		Select * From SCM_Timetables 
+		<where>
+			<if test="classesId != null">
+				classesId = #{classesId}
+			</if>
+			<if test="classesDate != null and classesDate != ''">
+				And classesDate = #{classesDate}
+			</if>
+		</where>
+	</select>
+</mapper>

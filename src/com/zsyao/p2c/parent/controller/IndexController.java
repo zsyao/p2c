@@ -3,6 +3,7 @@ package com.zsyao.p2c.parent.controller;
 import java.util.List;
 
 import javax.annotation.Resource;
+import javax.servlet.http.HttpServletRequest;
 
 import net.sf.json.JSONArray;
 import net.sf.json.JSONObject;
@@ -13,10 +14,13 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.zsyao.p2c.Constants;
+import com.zsyao.p2c.parent.model.PMParent;
+import com.zsyao.p2c.parent.service.IPMParentService;
 import com.zsyao.p2c.school.model.SCMClasses;
 import com.zsyao.p2c.school.model.SCMSchool;
 import com.zsyao.p2c.school.service.ISCMClassesService;
 import com.zsyao.p2c.school.service.ISCMSchoolService;
+import com.zsyao.util.OpenIdUtil;
 
 @Controller
 @RequestMapping("/parent")
@@ -28,9 +32,30 @@ public class IndexController
 	@Resource
 	private ISCMClassesService classesService;
 	
+	@Resource
+	private IPMParentService parentService;
+	
 	@RequestMapping("/index")
-	public String index(Model model) throws Exception
+	public String index(Integer schoolId, Model model, HttpServletRequest request) throws Exception
 	{
+		String openId = OpenIdUtil.getOpenId(request);
+		//判断是否已加入
+		List<PMParent> parentList = parentService.getParentList(openId, schoolId);
+		
+		if (parentList.size() > 1)
+		{
+			//学生首页
+		}
+		else if (parentList.size() == 1)
+		{
+			PMParent parent = parentList.get(0);
+			return "redirect:/child/view?schoolId=" + schoolId + "&studentId=" + parent.getStudentId();
+		}
+		else
+		{
+			//待加入首页
+			return "redirect:/school/join?schoolId=" + schoolId;
+		}
 		return "/parent/index";
 	}
 	
@@ -95,18 +120,11 @@ public class IndexController
 	
 	@RequestMapping(value = {"/requestJoinClasses"}, produces = {"text/html;charset=UTF-8"})
 	@ResponseBody
-	public String requestJoinClasses(Integer id, String reason) throws Exception
+	public String requestJoinClasses(Integer classesId, String reason) throws Exception
 	{
-		List<SCMClasses> classesList = classesService.getClassesList(id);
+		String openId = "";
 		JSONObject json = new JSONObject();
-		json.put(Constants.JSON_OF_IS_SUCCESS, true);
-		
-		JSONArray arryClasses = new JSONArray();
-		for (SCMClasses classes : classesList)
-		{
-			arryClasses.add(JSONObject.fromObject(classes));
-		}
-		json.put("classesList", arryClasses);
 		return json.toString();
 	}
+	
 }

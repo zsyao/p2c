@@ -24,4 +24,6 @@
 	<context:component-scan base-package="com.zsyao" />
 	<util:properties id="systemConfig" location="classpath:system/config.properties"/>
 	<import resource="spring-dao.xml" />
+	
+	<bean id="wechatExceptionHandler" class="com.zsyao.p2c.base.filter.ExceptionHandler"/>
 </beans>

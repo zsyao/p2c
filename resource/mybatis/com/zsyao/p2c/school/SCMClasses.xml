@@ -7,7 +7,7 @@
 		Select * From SCM_Classes 
 		<where>
 			<if test="serialNo != null">
-				And serialNo = #{serialNo}
+				serialNo = #{serialNo}
 			</if>
 			<if test="schoolId != null">
 				And schoolId = #{schoolId}

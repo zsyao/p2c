@@ -221,4 +221,26 @@ public class WechatServiceImpl implements IWechatService
             configDao.updateWechatConfig(config);
         }
     }
+
+	@Override
+	public String getAppId(int wechatId) throws Exception
+	{
+		WMWechatConfig config = configDao.getWechatConfigBySerialNo(wechatId);
+		if (config != null)
+		{
+			return config.getAppId();
+		}
+		return null;
+	}
+
+	@Override
+	public String getAppSecret(int wechatId) throws Exception
+	{
+		WMWechatConfig config = configDao.getWechatConfigBySerialNo(wechatId);
+		if (config != null)
+		{
+			return config.getAppSecret();
+		}
+		return null;
+	}
 }

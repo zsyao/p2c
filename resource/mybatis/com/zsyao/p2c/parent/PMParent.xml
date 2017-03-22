@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper 
+    PUBLIC "-//ibatis.apache.org//DTD Mapper 3.0//EN" 
+    "http://ibatis.apache.org/dtd/ibatis-3-mapper.dtd">
+<mapper namespace="PMParent">
+	<select id="select" parameterType="com.zsyao.p2c.parent.model.PMParent" resultType="com.zsyao.p2c.parent.model.PMParent">
+		Select * From PM_Parent 
+		<where>
+			<if test="openId != null and openId != ''">
+				openId = #{openId}
+			</if>
+			<if test="schoolId != null and schoolId != ''">
+				And schoolId = #{schoolId}
+			</if>
+		</where>
+	</select>
+	
+	<insert id="insert" parameterType="com.zsyao.p2c.parent.model.PMParent">
+		INSERT INTO PM_Parent(openId, studentId, schoolId, classesId, relation)
+		VALUES(#{openId}, #{studentId}, #{schoolId}, #{classesId}, #{relation})
+	</insert>
+</mapper>

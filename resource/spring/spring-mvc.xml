@@ -48,6 +48,15 @@
 	
 	<!-- 对静态资源文件的访问 -->  
 	<mvc:resources mapping="/resource/**" location="/resource/" />
+	
+	
+	<mvc:interceptors>
+		<mvc:interceptor>
+			<mvc:mapping path="/parent/**"/>
+			<mvc:mapping path="/school/**"/>
+			<bean class="com.zsyao.p2c.base.filter.OpenIdFilter"/>
+		</mvc:interceptor>
+	</mvc:interceptors>
 
 	<bean id="multipartResolver" class="org.springframework.web.multipart.commons.CommonsMultipartResolver" p:defaultEncoding="utf-8" />
 </beans>

@@ -29,5 +29,11 @@ public class SCMSchoolServiceImpl implements ISCMSchoolService
 	{
 		return schoolDao.getSchoolList();
 	}
+
+	@Override
+	public SCMSchool getSchoolById(Integer schoolId) throws Exception
+	{
+		return schoolDao.getSchoolById(schoolId);
+	}
 	
 }

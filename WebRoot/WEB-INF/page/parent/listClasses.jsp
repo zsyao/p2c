@@ -55,6 +55,24 @@
 			$("#btnRequest").on("click", function(){
 				console.log("classes:" + $classes.val());
 				console.log("reason:" + $reason.val());
+				$.ajax({
+					type : 'post',
+					url : 'requestJoinClasses',
+					data : {
+						classesId : $classes.val(),
+						reason : $reason.val(),
+					},
+					success : function(data) {
+						var jsonData = $.parseJSON(data);
+						if (jsonData.isSuccess) {
+				            window.pageManager.back();
+						}
+						$loadingClasses.hide();
+					},
+					error : function(xhr, type) {
+						$loadingClasses.hide();
+					}
+				});
 			});
 		}
 
@@ -82,10 +100,6 @@
 					$loadingClasses.hide();
 				}
 			});
-		}
-
-		function submitRequest(id) {
-			console.log(id);
 		}
 		init();
 	});

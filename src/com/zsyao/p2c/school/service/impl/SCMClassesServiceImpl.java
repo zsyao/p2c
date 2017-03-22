@@ -7,12 +7,15 @@ import javax.annotation.Resource;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import com.zsyao.p2c.Constants;
+import com.zsyao.p2c.base.exception.SystemException;
+import com.zsyao.p2c.parent.dao.IPMParentDao;
+import com.zsyao.p2c.parent.model.PMParent;
 import com.zsyao.p2c.school.dao.ISCMClassesDao;
-import com.zsyao.p2c.school.dao.ISCMJoinClassesDao;
+import com.zsyao.p2c.school.dao.ISCMStudentDao;
 import com.zsyao.p2c.school.model.SCMClasses;
-import com.zsyao.p2c.school.model.SCMJoinClasses;
+import com.zsyao.p2c.school.model.SCMStudent;
 import com.zsyao.p2c.school.service.ISCMClassesService;
-import com.zsyao.util.DateUtil;
 
 @Service
 @Transactional
@@ -22,24 +25,49 @@ public class SCMClassesServiceImpl implements ISCMClassesService
 	private ISCMClassesDao classesDao;
 	
 	@Resource
-	private ISCMJoinClassesDao joinClassesDao;
-
+	private ISCMStudentDao studentDao;
+	
+	@Resource
+	private IPMParentDao parentDao;
+	
 	@Override
 	public List<SCMClasses> getClassesList(Integer schoolId) throws Exception
 	{
 		return classesDao.getClassesList(schoolId);
 	}
+	
+	@Override
+	public SCMClasses getClasses(Integer classesId) throws Exception
+	{
+		return classesDao.getClassesById(classesId);
+	}
 
 	@Override
-	public boolean join(Integer classesId, String openId, String reason) throws Exception
+	public boolean joinClasses(Integer schoolId, Integer classesId, String openId, String relation, String mobile) throws Exception
 	{
-		SCMJoinClasses joinClasses = new SCMJoinClasses();
-		joinClasses.setClassesId(classesId);
-		joinClasses.setOpenId(openId);
-		joinClasses.setReason(reason);
-		joinClasses.setCreateTime(DateUtil.getNowDateTime());
-		joinClasses.setStatus(SCMJoinClasses.STATUS_OF_UNCHECK);
-		return joinClassesDao.insertToDb(joinClasses);
+		List<SCMStudent> studentList = studentDao.selectStudent(classesId, mobile);
+		
+		if (studentList.size() == 0)
+		{
+			throw new SystemException(Constants.ERROR_CODE_OF_NOT_EXISTS_STUDENT);
+		}
+		
+		if (studentList.size() != 1)
+		{
+			throw new SystemException(Constants.ERROR_CODE_OF_NOT_SURE_STUDENT);
+		}
+		
+		PMParent parent = new PMParent();
+		parent.setOpenId(openId);
+		parent.setStudentId(studentList.get(0).getSerialNo());
+		parent.setSchoolId(schoolId);
+		parent.setClassesId(classesId);
+		parent.setRelation(relation);
+		if (!parentDao.insert(parent))
+		{
+			throw new SystemException(Constants.ERROR_CODE_OF_SAVE_PARENT_FAIL);
+		}
+		return true;
 	}
 
 }

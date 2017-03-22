@@ -10,4 +10,6 @@ public interface ISCMSchoolService
 	List<SCMSchool> getSchoolListByName(String name) throws Exception;
 
 	List<SCMSchool> getSchoolList() throws Exception;
+	
+	SCMSchool getSchoolById(Integer schoolId) throws Exception;
 }

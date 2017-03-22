@@ -12,6 +12,9 @@ public class SCMClasses extends BaseEntity
 	private String createTime;
 	private Integer status;
 	
+	public static int STATUS_OF_ENABLE = 1;
+	public static int STATUS_OF_FINSH = 2;
+	
 	public Integer getSerialNo()
 	{
 		return serialNo;

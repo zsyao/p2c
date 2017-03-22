@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper 
+    PUBLIC "-//ibatis.apache.org//DTD Mapper 3.0//EN" 
+    "http://ibatis.apache.org/dtd/ibatis-3-mapper.dtd">
+<mapper namespace="SCMStudent">
+	<select id="select" parameterType="com.zsyao.p2c.school.model.SCMStudent" resultType="com.zsyao.p2c.school.model.SCMStudent">
+		Select * From SCM_Student 
+		<where>
+			<if test="serialNo != serialNo">
+				serialNo = #{serialNo}
+			</if>
+			<if test="classesId != null">
+				And classesId = #{classesId}
+			</if>
+			<if test="bindMobile != null and bindMobile != ''">
+				And bindMobile = #{bindMobile}
+			</if>
+		</where>
+	</select>
+	
+</mapper>

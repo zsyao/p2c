@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper 
+    PUBLIC "-//ibatis.apache.org//DTD Mapper 3.0//EN" 
+    "http://ibatis.apache.org/dtd/ibatis-3-mapper.dtd">
+<mapper namespace="SMParameter">
+	<select id="select" parameterType="com.zsyao.p2c.base.model.SMParameter" resultType="com.zsyao.p2c.base.model.SMParameter">
+		Select * From SM_Parameter 
+		<where>
+			<if test="parameterName != null and parameterName != ''">
+				parameterName = #{parameterName}
+			</if>
+		</where>
+	</select>
+</mapper>

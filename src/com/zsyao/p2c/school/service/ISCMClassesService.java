@@ -9,5 +9,7 @@ public interface ISCMClassesService
 {
 	List<SCMClasses> getClassesList(Integer schoolId) throws Exception;
 	
-	boolean join(Integer classesId, String openId, String reason) throws Exception;
+	SCMClasses getClasses(Integer classesId) throws Exception;
+	
+	boolean joinClasses(Integer schoolId, Integer classesId, String openId, String relation, String mobile) throws Exception;
 }
